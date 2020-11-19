@@ -1,3 +1,63 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30px;
+}
+
 body {
-  margin: 0;
+  margin: 0 auto;
+  min-width: 708px;
+  width: calc(100% - 708px * 2);
+  text-align: center;
+}
+
+.calendar {
+  display: flex;
+  flex-wrap: wrap;
+
+  & > * {
+    position: relative;
+    background-color: #eee;
+    height: 100px;
+    width: 100px;
+    margin: 0 0 1px 1px;
+    border: 1px solid black;
+    transition: 0.5s;
+  }
+
+  & > *:hover {
+    cursor: pointer;
+    background-color: pink;
+    bottom: 20px;
+  }
+}
+
+// размещение числа месяца по центру в каждом квадрате
+@for $i from 1 through 31 {
+  .calendar *:nth-child(#{$i})::before {
+    position: absolute;
+    content: "#{$i}";
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+// проверка на кол-во дней в месяце
+@for $i from 28 through 31 {
+  .calendar-#{$i} *:nth-last-child(-n + #{31 -$i}) {
+    display: none;
+  }
+}
+
+// с какого дня недели начинается новый месяц
+$first-margin: ("mon": 1px, "tue": 102px, "wed": 203px, "thu": 304px,
+"fri": 405px, "sat": 506px, "sun": 607px);
+@each $day, $marg in $first-margin {
+  .calendar-#{$day} *:first-child {
+    margin-left: #{$marg};
+  }
 }
