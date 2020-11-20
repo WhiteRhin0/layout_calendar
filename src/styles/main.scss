@@ -31,7 +31,7 @@ body {
   & > *:hover {
     cursor: pointer;
     background-color: pink;
-    bottom: 20px;
+    transform: translate(0, -20px);
   }
 }
 
