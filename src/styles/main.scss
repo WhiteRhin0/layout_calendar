@@ -1,3 +1,5 @@
+$day-width: 101px;
+
 * {
   box-sizing: border-box;
 }
@@ -8,6 +10,10 @@ html {
 }
 
 body {
+  margin: 0;
+}
+
+.container {
   margin: 0 auto;
   min-width: 708px;
   width: calc(100% - 708px * 2);
@@ -18,20 +24,20 @@ body {
   display: flex;
   flex-wrap: wrap;
 
-  & > * {
+  * {
     position: relative;
-    background-color: #eee;
     height: 100px;
     width: 100px;
+    background-color: #eee;
     margin: 0 0 1px 1px;
     border: 1px solid black;
     transition: 0.5s;
-  }
 
-  & > *:hover {
-    cursor: pointer;
-    background-color: pink;
-    transform: translate(0, -20px);
+    &:hover {
+      cursor: pointer;
+      background-color: pink;
+      transform: translate(0, -20px);
+    }
   }
 }
 
@@ -54,8 +60,8 @@ body {
 }
 
 // с какого дня недели начинается новый месяц
-$first-margin: ("mon": 1px, "tue": 102px, "wed": 203px, "thu": 304px,
-"fri": 405px, "sat": 506px, "sun": 607px);
+$first-margin: ("mon": 1px, "tue": $day-width + 1px, "wed": $day-width * 2 + 1px, "thu": $day-width * 3 + 1px,
+"fri": $day-width * 4 + 1px, "sat": $day-width * 5 + 1px, "sun": $day-width * 6 + 1px);
 @each $day, $marg in $first-margin {
   .calendar-#{$day} *:first-child {
     margin-left: #{$marg};
